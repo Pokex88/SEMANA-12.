@@ -1,0 +1,57 @@
+# Datos de temperaturas por ciudad, día de la semana y semana
+temperaturas = [
+   [   # Quito
+        [78, 80, 82, 79, 85, 88, 92],  # Semana 1
+        [76, 79, 83, 81, 87, 89, 93],  # Semana 2
+        [77, 81, 85, 82, 88, 91, 95],  # Semana 3
+        [75, 78, 80, 79, 84, 87, 91]   # Semana 4
+    ],
+    [   # Loja
+        [62, 64, 68, 70, 73, 75, 79],  # Semana 1
+        [63, 66, 70, 72, 75, 77, 81],  # Semana 2
+        [61, 65, 68, 70, 72, 76, 80],  # Semana 3
+        [64, 67, 69, 71, 74, 77, 80]   # Semana 4
+    ],
+    [   # Guayaquil
+        [90, 92, 94, 91, 88, 85, 82],  # Semana 1
+        [89, 91, 93, 90, 87, 84, 81],  # Semana 2
+        [91, 93, 95, 92, 89, 86, 83],  # Semana 3
+        [88, 90, 92, 89, 86, 83, 80]   # Semana 4
+    ]
+]
+
+# Lista de nombres de las ciudades
+ciudades = ["Quito", "Loja", "Guayaquil"]
+
+# Función para calcular el promedio total por ciudad
+def promedio_por_ciudad(datos):
+    promedios = []
+    for ciudad in datos:
+        total_temperaturas = sum(sum(semana) for semana in ciudad)
+        total_dias = sum(len(semana) for semana in ciudad)
+        promedio = total_temperaturas / total_dias
+        promedios.append(promedio)
+    return promedios
+
+# Función para calcular el promedio por semana en cada ciudad
+def promedio_por_semana(datos):
+    promedios_semana = []
+    for ciudad in datos:
+        promedios_ciudad = [sum(semana) / len(semana) for semana in ciudad]
+        promedios_semana.append(promedios_ciudad)
+    return promedios_semana
+
+# Llamada a las funciones
+promedio_ciudad = promedio_por_ciudad(temperaturas)
+promedio_semana = promedio_por_semana(temperaturas)
+
+# Imprimir resultados por ciudad
+print("Promedio total de temperatura por ciudad:")
+for i, promedio in enumerate(promedio_ciudad):
+    print(f"- {ciudades[i]}: {promedio:.2f} grados")
+
+# Imprimir resultados por semana
+print("\nPromedio de temperatura por semana:")
+for i, ciudad in enumerate(promedio_semana):
+    for semana_idx, promedio in enumerate(ciudad):
+        print(f"- {ciudades[i]}, Semana {semana_idx + 1}: {promedio:.2f} grados")
